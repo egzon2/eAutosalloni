@@ -1,0 +1,118 @@
+﻿@model Vehicle
+
+@{
+    ViewData["Title"] = "VehicleDetails";
+    List<VehicleImage> Images = (List<VehicleImage>)ViewBag.VehicleImages;
+}
+
+<head>
+    <link href="~/css/productDetails.css" rel="stylesheet" />
+    <style>
+        .user-img {
+            margin: 0.5em;
+            width: 30px;
+            height: 30px;
+        }
+
+        .comments {
+            background-color: #f7f7f7;
+            height: 400px;
+            overflow-y: scroll;
+            overflow-x: hidden;
+            border-radius: 10px;
+        }
+
+        body {
+            background: rgba(219,21,99,0.8);
+            background: #0F2027; /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027); /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+    </style>
+</head>
+
+<main>
+    <h1 style="text-align: center; margin-top: 5vh; margin-bottom: 5vh; color: white;">PRODUCT DETAILS</h1>
+    <div class="row">
+        <div class="card-wrapper" style="background: white; margin-bottom: 5vh;">
+            <div class="card">
+                <div class="product-imgs">
+                    <div class="img-display">
+                        <div class="img-showcase">
+                           
+                            @foreach (var image in Images)
+                            {
+                                string encoded = Convert.ToBase64String(image.VehicleImg);
+                                string photo = string.Format("data:image/gif;base64,{0}", encoded);
+
+                                <img class="product-pic" src="@photo" alt="Alternate Text" />
+                            }
+                        </div>
+                    </div>
+                    @{var numId = 1; }
+                    <div class="img-select">
+
+                        @foreach (var image in Images)
+                        {
+                            string encoded = Convert.ToBase64String(image.VehicleImg);
+                            string photo = string.Format("data:image/gif;base64,{0}", encoded);
+                            ++numId;
+
+                            <div class="img-item">
+                                <a href="#" data-id="@numId">
+                                    <img class="product-pic" src="@photo" alt="product image" />
+                                </a>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <!-- card right -->
+                <div class="product-content">
+                    <h4 class="product-title">Name: @Model.Model</h4>
+                    <div class="product-detail">
+                        <h2>about this product: </h2>
+                        <p>@Model.Description</p>
+                        <ul>
+                            <li>Brand: <span>@Model.Brand</span></li>
+                            @if (Model.Quantity == 0)
+                            {
+                                <li>Available: <span>Out of stock</span></li>
+                            }
+                            else
+                            {
+                                <li>Available: <span>In stock</span></li>
+                            }
+                            <li>Quantity: <span> @Model.Quantity</span></li>
+                            <li>Category:<span> @Model.Category.Name </span></li>
+                            <li>Delivery: <span>Within 3 days</span></li>
+                        </ul>
+                    </div>
+                    <div class="product-price">
+                        <p class="price">Price: <span> @Model.Price EUR</span></p>
+                    </div>
+                    <a type="button" class="btn btn-primary" asp-action="Index" style="color:white;">Go back</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const imgs = document.querySelectorAll('.img-select a');
+        const imgBtns = [...imgs];
+        let imgId = 1;
+
+        imgBtns.forEach((imgItem) => {
+            imgItem.addEventListener('click', (event) => {
+                event.preventDefault();
+                imgId = imgItem.dataset.id;
+                slideImage();
+            });
+        });
+
+        function slideImage() {
+            const displayWidth = document.querySelector('.img-showcase img:first-child').clientWidth;
+
+            document.querySelector('.img-showcase').style.transform = `translateX(${- (imgId - 1) * displayWidth}px)`;
+        }
+        window.addEventListener('resize', slideImage);
+    </script>
+</main>

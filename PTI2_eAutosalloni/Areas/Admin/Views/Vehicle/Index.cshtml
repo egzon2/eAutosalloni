@@ -1,0 +1,71 @@
+﻿@model List<Vehicle>
+
+<style>
+
+    .dataTables_length {
+        color: black;
+    }
+
+    .dataTables_filter {
+        color: black;
+    }
+
+    .dataTables_info {
+        color: black;
+    }
+
+    #tblData_wrapper {
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+
+
+    body {
+        background: rgba(219,21,99,0.8);
+        background: #0F2027; /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027); /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+</style>
+<h1 style="text-align:center; margin-top: 5vh; color:white;">Products</h1>
+<a class="btn btn-secondary" style="width: 250px; height:50px; margin-left: auto; margin-right: auto;" asp-action="Create">Create new product</a>
+<div class="backgroundColoring">
+    <table id="tblData" class="table wrapperTable" style="background:white;">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>             
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Category</th>
+                <th scope="col">Manage</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@item.Id</th>
+                    <td>@item.Model</td>
+                    <td>@item.Price</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Category.Name</td>
+                    <td>
+                        <a type="button" class="btn btn-primary" asp-action="Details" asp-route-Id="@item.Id" style="color:white;">Details</a>
+                        <a type="button" class="btn btn-primary" asp-action="Update" asp-route-Id="@item.Id" style="color:white;">Update</a>
+                        <a type="button" class="btn btn-danger" asp-action="Delete" asp-route-Id="@item.Id" style="color:white;">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@section Scripts {
+<script>
+    $(document).ready(function () {
+        $('#tblData').DataTable();
+
+    });
+    </script>
+    
+}

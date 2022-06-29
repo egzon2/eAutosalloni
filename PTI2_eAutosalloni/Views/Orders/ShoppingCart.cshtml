@@ -1,0 +1,110 @@
+﻿@using PTI2_eAutosalloni.ViewModels;
+@model ShoppingCartViewModel
+    <!-- Shopping Cart Section Begin -->
+
+
+
+<link href="~/ShoppingCartView/css/elegant-icons.css" rel="stylesheet" />
+<link href="~/ShoppingCartView/css/jquery-ui.min.css" rel="stylesheet" />
+<link href="~/ShoppingCartView/css/nice-select.css" rel="stylesheet" />
+<link href="~/ShoppingCartView/css/owl.carousel.min.css" rel="stylesheet" />
+<link href="~/ShoppingCartView/css/slicknav.min.css" rel="stylesheet" />
+<link href="~/ShoppingCartView/css/style.css" rel="stylesheet" />
+<link href="~/ShoppingCartView/css/themify-icons.css" rel="stylesheet" />
+<body>
+    <section class="shopping-cart spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="cart-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Amount</th>
+                                    <th>Image</th>
+                                    <th class="p-name">Product Name</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th><i class="ti-close"></i></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.ShoppingCart.ShoppingCartItems)
+                                {
+
+                                    <tr>
+                                        <td>    <b>@item.Amount</b></td>
+                                        <td class="cart-pic first-row">
+                                            @{
+                                                string encoded = Convert.ToBase64String(item.Product.DefaultImage);
+                                                string photo = string.Format("data:image/gif;base64,{0}", encoded);
+                                            }
+                                            <img src="@photo" alt="Alternate Text" width="175px" height="175px" />
+                                        </td>
+                                        <td class="cart-title first-row">
+                                            <h5>@item.Product.Model</h5>
+                                        </td>
+                                        <td class="p-price first-row">@item.Product.Price</td>
+                                        <td class="qua-col first-row">
+                                            <a asp-controller="Orders" asp-action="AddItemToShoppingCart" asp-route-id="@item.Product.Id">
+                                                <i class="fa fa-plus" style="color:orange"></i>
+                                            </a>
+                                            <a asp-controller="Orders" asp-action="RemoveItemToShoppingCart" asp-route-id="@item.Product.Id">
+                                                <i class="fa fa-minus" style="color:gray"></i>
+                                            </a>
+                                        </td>
+                                        <td class="total-price first-row">@((item.Amount*item.Product.Price).ToString("c"))</td>
+                                        <td class="close-td first-row">
+                                            <a asp-controller="Orders" asp-action="RemoveItemToShoppingCart" asp-route-id="@item.Product.Id">
+
+                                               <i class="ti-close"></i>
+                                                </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        @*<div class="col-lg-4">
+                            <div class="cart-buttons">
+                                <a class="primary-btn continue-shop" asp-controller="Home" asp-action="Index">Continue shopping</a>
+                                <a href="#" class="primary-btn up-cart">Update cart</a>
+                            </div>
+                            <div class="discount-coupon">
+                                <h6>Discount Codes</h6>
+                                <form action="#" class="coupon-form">
+                                    <input type="text" placeholder="Enter your codes">
+                                    <button type="submit" class="site-btn coupon-btn">Apply</button>
+                                </form>
+                            </div>
+                        </div>*@
+                        <div class="col-lg-4 offset-lg-4">
+                            <div class="proceed-checkout">
+                                <ul>
+                                    <li class="subtotal">Subtotal <span>@Model.ShoppingCartTotal.ToString("c")</span></li>
+                                    <li class="cart-total">Total <span>@Model.ShoppingCartTotal.ToString("c")</span></li>
+                                </ul>
+                                <a asp-action="Checkout" class="proceed-btn">PROCEED TO CHECK OUT</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+
+<!-- Shopping Cart Section End -->
+<script src="~/ProductView/js/jquery-3.3.1.min.js"></script>
+<script src="~/ProductView/js/jquery-ui.min.js"></script>
+<script src="~/ProductView/js/jquery.countdown.min.js"></script>
+<script src="~/ProductView/js/jquery.nice-select.min.js"></script>
+<script src="~/ProductView/js/jquery.zoom.min.js"></script>
+<script src="~/ProductView/js/jquery.dd.min.js"></script>
+<script src="~/ProductView/js/jquery.slicknav.js"></script>
+<script src="~/ProductView/js/owl.carousel.min.js"></script>
+<script src="~/ProductView/js/main.js"></script>
+

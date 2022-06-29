@@ -1,0 +1,21 @@
+﻿/*.wrapperForm {
+    margin-top: 10vh;
+    margin-right: auto;*/ /* 1 */
+    /*margin-left: auto;*/ /* 1 */
+
+    
+
+    /*padding-right: 10px;*/ /* 3 */
+    /*padding-left: 10px;*/ /* 3 */
+/*}*/
+
+.wrapperForm {
+    margin-top: 10vh;
+    margin-right: 27%; 
+    margin-left: 27%;  
+}
+
+.centerForm {
+    margin-right: auto;
+    margin-left: auto;
+}

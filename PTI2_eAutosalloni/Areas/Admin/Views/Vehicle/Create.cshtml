@@ -1,0 +1,87 @@
+﻿@model PTI2_eAutosalloni.ViewModels.VehicleViewModel
+
+@{
+    ViewData["Title"] = "CreateProduct";
+    var Categories = (List<SelectListItem>)ViewBag.Categories;
+    var Brands = (List<SelectListItem>)ViewBag.Brands;
+}
+
+
+<div class="bg-contact2" style="background-image: url('~/wwwroot/AdminTheme/ContactFrom_v2/images/bg-01.jpg');">
+    <div class="container-contact2">
+        <div class="wrap-contact2">
+            <form class="contact2-form validate-form" asp-action="Create" method="post" enctype="multipart/form-data">
+                <span class="contact2-form-title">
+                    Create Product
+                </span>
+                <div class="container-contact2-form-btn">
+                    <div class="wrap-contact2-form-btn">
+                        <div class="contact2-form-bgbtn"></div>
+                        <button class="contact2-form-btn" asp-action="Index">
+                            Go back
+                        </button>
+                    </div>
+                </div>
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="wrap-input2 validate-input" data-validate="Model is required">
+                    <input asp-for="@Model.Model" class="input2" >
+                    <span class="focus-input2" data-placeholder="Name"></span>
+                </div>
+                <div class="wrap-input2 validate-input">
+                    <textarea asp-for="@Model.Description" class="input2"></textarea>
+                    <span class="focus-input2" data-placeholder="Description"></span>
+                </div>
+                <div class="wrap-input2 validate-input" data-validate="Price is required">
+                    <input asp-for="@Model.Price" class="input2">
+                    <span class="focus-input2" data-placeholder="Price"></span>
+                </div>
+                <div class="wrap-input2 validate-input" data-validate="Quantity is required">
+                    <input asp-for="@Model.Quantity" class="input2">
+                    <span class="focus-input2" data-placeholder="Quantity"></span>
+                </div>
+                <div class="wrap-input2 validate-input" data-validate="Engine is required">
+                    <input asp-for="@Model.Engine" class="input2">
+                    <span class="focus-input2" data-placeholder="Engine"></span>
+                </div>
+                <div class="wrap-input2 validate-input" data-validate="Color is required">
+                    <input asp-for="@Model.Color" class="input2">
+                    <span class="focus-input2" data-placeholder="Color"></span>
+                </div>
+                <div class="wrap-input2 validate-input" data-validate="Year is required">
+                    <input asp-for="@Model.Year" class="input2">
+                    <span class="focus-input2" data-placeholder="Year"></span>
+                </div>
+                <div class="wrap-input2 validate-input" data-validate="Transmission is required">
+                    <input asp-for="@Model.TransmissionType" class="input2">
+                    <span class="focus-input2" data-placeholder="Transmission"></span>
+                </div>
+                <div class="wrap-input2 validate-input">
+                    <select asp-for="@Model.BrandId" asp-items="@Brands" class="form-control" required>
+                        <option value="" disabled selected hidden>Choose a Vehicle Brand</option>
+                    </select>
+                </div>
+                <div class="wrap-input2 validate-input">
+                    <select asp-for="@Model.CategoryId" asp-items="@Categories" class="form-control" required>
+                        <option value="" disabled selected hidden>Choose a Vehicle Category</option>
+                    </select>
+                </div>
+                <div class="wrap-input2 validate-input" data-validate="Please upload an vehicle image">
+                    <p class="">Default Image</p>
+                    <input asp-for="@Model.DefaultPhoto" class="input2">
+                </div>
+                <div class="wrap-input2 validate-input" data-validate="Please upload some vehicle images">
+                    <p class="">Other images</p>
+                    <input asp-for="@Model.Images" class="input2">
+                </div>
+                <div class="container-contact2-form-btn">
+                    <div class="wrap-contact2-form-btn">
+                        <div class="contact2-form-bgbtn"></div>
+                        <button class="contact2-form-btn">
+                            Create
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

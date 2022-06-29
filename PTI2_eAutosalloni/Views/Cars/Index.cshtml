@@ -1,0 +1,167 @@
+﻿@model List<Vehicle>
+
+<body>
+
+    <!-- Page Content -->
+    <div class="page-heading about-heading header-text" style="background-image: url(assets/images/heading-6-1920x500.jpg);">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-content">
+                        <h4>BUY THE CAR!</h4>
+                        <h2>CHOOSE YOUR DRIVE</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="products">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="contact-form">
+                        @*<form class="d-flex" method="get" asp-action="Index">
+                           
+                           
+                            <input type="submit" class="btn btn-primary" value="Search" style="margin-left:10px;">
+                        </form>*@
+                        <form method="get" asp-action="Index">
+                            <label>Model:</label>
+
+                            @Html.DropDownList("search", (SelectList)ViewBag.Emertimi, "-- All --")
+
+                            <label>Price:</label>
+
+                            @Html.DropDownList("price", (SelectList)ViewBag.Cmimi, "-- All --")
+
+                            <label>Category:</label>
+
+                            @Html.DropDownList("category", (SelectList)ViewBag.Kategoria, "-- All --")
+
+                            <label>Brand:</label>
+
+
+                            @Html.DropDownList("brand", (SelectList)ViewBag.Brandi, "-- All --")
+
+                            <label>Engine:</label>
+
+                            @Html.DropDownList("engine", (SelectList)ViewBag.Motorri, "-- All --")
+
+                            <button type="submit" class="filled-button btn-block" value="Search">Search</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-md-9">
+                    <div class="row">
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-md-6">
+                                <div class="product-item">
+                                    @{
+                                        string encoded = Convert.ToBase64String(item.DefaultImage);
+                                        string photo = string.Format("data:image/gif;base64,{0}", encoded);
+                                    }
+                                    <a asp-area="" asp-controller="Home" asp-route-Id="@item.Id" asp-action="IndexDetails"><div style="background-image:url(@photo);height:300px;background-position:center;background-size:contain;background-repeat:no-repeat"></div></a>
+                                    <div class="down-content">
+                                        <a asp-area="" asp-controller="Home" asp-route-Id="@item.Id" asp-action="IndexDetails"><h4>@item.Brand.Name @item.Model</h4></a>
+
+                                        <h6><small><del>€@(Convert.ToDecimal(item.Price*1.25).ToString("#,##0.00"))</del></small> &nbsp; €@(Convert.ToDecimal(item.Price).ToString("#,##0.00"))</h6>
+
+                                        <p>@item.Engine &nbsp;/&nbsp; @item.Category.Name &nbsp;/&nbsp; @(item.Year.ToString("dd/MM/yyyy")) &nbsp;/&nbsp; New vehicle</p>
+
+                                        <small>
+                                            <strong title="Author"><i class="fa fa-dashboard"></i> 0km</strong> &nbsp;&nbsp;&nbsp;&nbsp;
+                                            <strong title="Author"><i class="fa fa-cube"></i> @(Double.Parse(item.Engine.Trim('.').Substring(0, 3))*1000)cc</strong>&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <strong title="Views"><i class="fa fa-cog"></i> @item.TransmissionType</strong>
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                       
+
+                        @*<div class="col-md-12">
+                            <ul class="pages">
+                                <li><a href="#">1</a></li>
+                                <li class="active"><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
+                            </ul>
+                        </div>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Book Now</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="contact-form">
+                        <form action="#" id="contact">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <input type="text" class="form-control" placeholder="Pick-up location" required="">
+                                    </fieldset>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <input type="text" class="form-control" placeholder="Return location" required="">
+                                    </fieldset>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <input type="text" class="form-control" placeholder="Pick-up date/time" required="">
+                                    </fieldset>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <input type="text" class="form-control" placeholder="Return date/time" required="">
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Enter full name" required="">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <input type="text" class="form-control" placeholder="Enter email address" required="">
+                                    </fieldset>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <input type="text" class="form-control" placeholder="Enter phone" required="">
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary">Book Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+

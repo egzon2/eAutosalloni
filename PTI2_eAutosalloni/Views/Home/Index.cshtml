@@ -1,0 +1,326 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    List<VehicleImage> Images = (List<VehicleImage>)ViewBag.VehicleImages;
+}
+
+
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    @*<link rel="icon" href="assets/images/favicon.ico">*@
+    <link rel="icon" src="~/assets/images/favicon.ico" />
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500,600,700,800,900&display=swap" rel="stylesheet">
+
+    <title>PHPJabbers.com | Free Car Dealer Website Template</title>
+
+    <!-- Bootstrap core CSS -->
+    @*<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">*@
+    @*<link rel="stylesheet" href="~/bower_components/bootstrap/dist/css/bootstrap.min.css">*@
+
+    <!-- Additional CSS Files -->
+    @*<link rel="stylesheet" href="assets/css/fontawesome.css">
+        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="assets/css/owl.css">*@
+
+</head>
+
+<body>
+
+    <!-- ***** Preloader Start ***** -->
+    @*<div id="preloader">
+            <div class="jumper">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>*@
+    <!-- ***** Preloader End ***** -->
+    <!-- Header -->
+    <!--<header class="">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="index.html"><h2>Car Dealer <em>Website</em></h2></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="index.html">
+                                Home
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+
+                        <li class="nav-item"><a class="nav-link" href="cars.html">Cars</a></li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">More</a>
+
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="blog.html">Blog</a>
+                                <a class="dropdown-item" href="team.html">Team</a>
+                                <a class="dropdown-item" href="testimonials.html">Testimonials</a>
+                                <a class="dropdown-item" href="terms.html">Terms</a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item"><a class="nav-link" href="about-us.html">About Us</a></li>
+
+                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>-->
+    <!-- Page Content -->
+    <!-- Banner Starts Here -->
+    <div class="banner header-text">
+        <div class="owl-banner owl-carousel">
+            <div class="banner-item-01">
+                <div class="text-content">
+                    <h4>Find your car today!</h4>
+                    <h2>Welcome to the best Autoseller in the world</h2>
+                </div>
+            </div>
+            <div class="banner-item-02">
+                <div class="text-content">
+                    <h4>Fugiat Aspernatur</h4>
+                    <h2>Laboriosam reprehenderit ducimus</h2>
+                </div>
+            </div>
+            <div class="banner-item-03">
+                <div class="text-content">
+                    <h4>Saepe Omnis</h4>
+                    <h2>Quaerat suscipit unde minus dicta</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Banner Ends Here -->
+
+    <div class="latest-products">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-heading">
+                        <h2>Featured Cars</h2>
+                        <a asp-controller="Cars" asp-action="Index">view more <i class="fa fa-angle-right"></i></a>
+                    </div>
+                </div>
+                @foreach (var item in ViewData["Recently"] as IEnumerable<Vehicle>)
+                {
+                    <div class="col-lg-4 col-md-6">
+                        <div class="product-item">
+                            @{
+                                string encoded = Convert.ToBase64String(item.DefaultImage);
+                                string photo = string.Format("data:image/gif;base64,{0}", encoded);
+                            }
+                            <a asp-route-Id="@item.Id" asp-action="IndexDetails"><div class="car-list-img" style="background-image: url('@photo');height:15rem;background-size: cover;background-position: bottom;background-repeat: no-repeat"></div></a>
+                            <div class="down-content">
+                                <a asp-route-Id="@item.Id" asp-action="IndexDetails"><h4>@item.Brand.Name  @item.Model</h4></a>
+
+                                <h6><small><del>€ @(Convert.ToDecimal(item.Price*1.25).ToString("#,##0.00"))</del></small> &nbsp; € @(Convert.ToDecimal(item.Price).ToString("#,##0.00"))</h6>
+
+                                <p>@item.Engine &nbsp;/&nbsp; @item.Category.Name &nbsp;/&nbsp; @(item.Year.ToString("dd/MM/yyyy")) &nbsp;/&nbsp; New vehicle</p>
+
+                                <small>
+                                    <strong title="Author"><i class="fa fa-dashboard"></i> 0km</strong> &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <strong title="Author"><i class="fa fa-cube"></i> @(Double.Parse(item.Engine.Trim('.').Substring(0, 3))*1000)cc</strong>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <strong title="Views"><i class="fa fa-cog"></i> @item.TransmissionType</strong>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="best-features">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-heading">
+                        <h2>About Us</h2>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="left-content">
+                        <p>Our values aren’t just words – they’re the way we do things at e-Autosalloni. Our brands are powered by journalists and content creators who live in their specialist sectors. Many are award-winners. Breaking the news that matters today, they lead the thinking that will define tomorrow</p>
+                        <ul class="featured-list">
+                            <li>Creativity, Expertise and Integrity have been our core values for over a decade – without them we wouldn’t be as successful as we are today. </li>
+                            <li>Innovation: To continuously enhance the experience of our clients and audiences we must explore new ideas, new techniques and new technologies and challenge ourselves in pursuit of excellence.</li>
+                            <li>Respect: Because we respect each other, our clients, our suppliers, our audiences and our communities, we recognise that, in a truly diverse and inclusive business, we must always respect different opinions, perspectives and personalities.</li>
+                        </ul>
+                        <a asp-area="" asp-controller="Home" asp-action="AboutUs" class="filled-button">Read More</a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="right-image">
+                        <img src="~/assets/images/about-1-570x350.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="services" style="background-image: url(~/assets/images/other-image-fullscren-1-1920x900.jpg);">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-heading">
+                        <h2>Latest blog posts</h2>
+
+                        @*<a href="blog.html">read more <i class="fa fa-angle-right"></i></a>*@
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-item">
+                        <a href="#" class="services-item-image"><img src="~/assets/images/blog-1-370x270.jpg" class="img-fluid" alt=""></a>
+
+                        <div class="down-content">
+                            <h4>The newest cars on the market</h4>
+
+                            <p style="margin: 0;"> Egzon THaqi &nbsp;&nbsp;|&nbsp;&nbsp; 12/06/2022 10:30 &nbsp;&nbsp;|&nbsp;&nbsp; 114</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-item">
+                        <a href="#" class="services-item-image"><img src="~/assets/images/blog-2-370x270.jpg" class="img-fluid" alt=""></a>
+
+                        <div class="down-content">
+                            <h4>The most expensive car in the world</h4>
+
+                            <p style="margin: 0;"> Diellza Kosumi &nbsp;&nbsp;|&nbsp;&nbsp; 12/06/2022 10:30 &nbsp;&nbsp;|&nbsp;&nbsp; 114</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-item">
+                        <a href="#" class="services-item-image"><img src="~/assets/images/blog-3-370x270.jpg" class="img-fluid" alt=""></a>
+
+                        <div class="down-content">
+                            <h4>The most comfortable and safe car</h4>
+
+                            <p style="margin: 0;"> Ron Asllani &nbsp;&nbsp;|&nbsp;&nbsp; 12/06/2022 10:30 &nbsp;&nbsp;|&nbsp;&nbsp; 114</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="happy-clients">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-heading">
+                        <h2>Happy Clients</h2>
+                      
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="owl-clients owl-carousel text-center">
+                        <div class="service-item">
+                            <div class="icon">
+                                <i class="fa fa-user"></i>
+                            </div>
+                            <div class="down-content">
+                                <h4>Egzon Thaqi</h4>
+                                <p class="n-m"><em>"A dynamic and serious team, I recommend a grade of 10/10"</em></p>
+                            </div>
+                        </div>
+
+                        <div class="service-item">
+                            <div class="icon">
+                                <i class="fa fa-user"></i>
+                            </div>
+                            <div class="down-content">
+                                <h4>Diellza Kosumi</h4>
+                                <p class="n-m"><em>" Wonderful and one of the most serious companies in Kosovo. Success"</em></p>
+                            </div>
+                        </div>
+
+                        <div class="service-item">
+                            <div class="icon">
+                                <i class="fa fa-user"></i>
+                            </div>
+                            <div class="down-content">
+                                <h4>Ron Asllani</h4>
+                                <p class="n-m"><em>"Hospitality, great staff, guaranteed cars, serious company, bravissimo e-AutoSallon"</em></p>
+                            </div>
+                        </div>
+
+                        <div class="service-item">
+                            <div class="icon">
+                                <i class="fa fa-user"></i>
+                            </div>
+                            <div class="down-content">
+                                <h4>test test</h4>
+                                <p class="n-m"><em>"You are number 1 in Prishtina but also in the whole of Kosovo, well done to you, right in front of the most beautiful cars in Kosovo."</em></p>
+                            </div>
+                        </div>
+
+                        <div class="service-item">
+                            <div class="icon">
+                                <i class="fa fa-user"></i>
+                            </div>
+                            <div class="down-content">
+                                <h4>UBT-Prishtine</h4>
+                                <p class="n-m"><em>"Top company and great staff."</em></p>
+                            </div>
+                        </div>
+
+                        <div class="service-item">
+                            <div class="icon">
+                                <i class="fa fa-user"></i>
+                            </div>
+                            <div class="down-content">
+                                <h4>UBT-Kampus</h4>
+                                <p class="n-m"><em>"The company with safe and comfortable cars."</em></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="call-to-action">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="inner-content">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h4>
+                                    CONTACT US FOR MORE INFORMATION
+                                </h4>
+                                <p>Our staff is always available for your requirements.</p>
+                            </div>
+                            <div class="col-lg-4 col-md-6 text-right">
+                                <a asp-area="" asp-controller="Home" asp-action="Contact" class="filled-button">Contact Us</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+@section Scripts {
+
+    <!-- Additional Scripts -->
+    @*<script src="~/assets/js/custom.js"></script>
+        <script src="~/assets/js/owl.js"></script>*@
+}
