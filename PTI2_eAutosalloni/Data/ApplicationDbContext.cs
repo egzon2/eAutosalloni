@@ -20,7 +20,7 @@ namespace PTI2_eAutosalloni.Data
         public DbSet<VehicleImage> VehicleImages { get; set; }
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
-
+       
 
     }
 }

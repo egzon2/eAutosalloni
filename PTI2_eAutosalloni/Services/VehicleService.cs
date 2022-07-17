@@ -31,7 +31,7 @@ namespace PTI2_eAutosalloni.Services
 
             using (var stream = new MemoryStream())
             {
-                await model.DefaultPhoto.CopyToAsync(stream);
+                //await model.DefaultPhoto.CopyToAsync(stream);
                 pictureBytes = stream.ToArray();
 
                 vehicle.DefaultImage = pictureBytes;
@@ -56,7 +56,7 @@ namespace PTI2_eAutosalloni.Services
 
             using (var stream = new MemoryStream())
             {
-                await model.DefaultPhoto.CopyToAsync(stream);
+                //await model.DefaultPhoto.CopyToAsync(stream);
                 pictureBytes = stream.ToArray();
 
                 vehicle.DefaultImage = pictureBytes;
@@ -101,9 +101,9 @@ namespace PTI2_eAutosalloni.Services
             return await _vehicleRepository.FindByCategory(CategoryId);
         }
 
-        Task<bool> IVehicleService.Update(VehicleViewModel entity)
-        {
-            throw new NotImplementedException();
-        }
+        //Task<bool> IVehicleService.Update(VehicleViewModel entity)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

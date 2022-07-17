@@ -1,0 +1,22 @@
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace eAutosalloni.Data.Cart
+{
+    public class Checkout : Controller
+    {
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        <div class="col-lg-4 offset-lg-4">
+                            <div class="proceed-checkout">
+                                <ul>
+                                    <li class="subtotal">Subtotal <span>@Model.ShoppingCartTotal.ToString("c")</span></li>
+                                    <li class="cart-total">Total <span>@Model.ShoppingCartTotal.ToString("c")</span></li>
+                                </ul>
+                                <a asp-action="ShoppingCart" asp-controller="Orders" class="proceed-btn">PROCEED TO CHECK OUT</a>
+                                </div>
+                        </div>
+    }
+}

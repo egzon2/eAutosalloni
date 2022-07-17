@@ -65,5 +65,5 @@ namespace PTI2_eAutosalloni.Controllers
             }
             return RedirectToAction(nameof(ShoppingCart));
         }
-    }
+}
 }

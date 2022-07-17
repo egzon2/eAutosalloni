@@ -40,7 +40,7 @@
                                                 string encoded = Convert.ToBase64String(item.Product.DefaultImage);
                                                 string photo = string.Format("data:image/gif;base64,{0}", encoded);
                                             }
-                                            <img src="@photo" alt="Alternate Text" width="175px" height="175px" />
+                                            <img src="@photo" alt="Alternate Text" />
                                         </td>
                                         <td class="cart-title first-row">
                                             <h5>@item.Product.Model</h5>
@@ -86,7 +86,11 @@
                                     <li class="subtotal">Subtotal <span>@Model.ShoppingCartTotal.ToString("c")</span></li>
                                     <li class="cart-total">Total <span>@Model.ShoppingCartTotal.ToString("c")</span></li>
                                 </ul>
-                                <a asp-action="Checkout" class="proceed-btn">PROCEED TO CHECK OUT</a>
+                                @*<a asp-action="ShoppingCart" asp-controller="Orders" class="proceed-btn">PROCEED TO CHECK OUT</a>*@
+                                @*@Html.ActionLink("Continue Shopping","Index","Product") |
+                                @Html.ActionLink("Checkout","Checkout","ShopingCart")*@
+                                <a asp-action="Products" asp-controller="Product" class="proceed-btn">To Products</a>
+                                
                             </div>
                         </div>
                     </div>
